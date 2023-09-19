@@ -51,6 +51,10 @@ const install: InstallFunction = function (Vue, options = {}) {
 // 直接给浏览器或 AMD loader 使用
 if (typeof window !== 'undefined' && (window as Window).Vue) {
   install((window as Window).Vue);
+
+  if (install.installed) {
+    install.installed = false;
+  }
 }
 
 export default {
