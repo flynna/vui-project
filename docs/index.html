@@ -11,11 +11,10 @@
     <div id="app">
       <vui-button>测试一下自定义的button</vui-button>
     </div>
-    
+
     <script>
-      const app = new Vue({
-        el: '#app',
-      });
+      const { createApp } = Vue;
+      createApp({}).mount('#app');
     </script>
   </body>
 </html>
