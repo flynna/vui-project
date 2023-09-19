@@ -1,14 +1,19 @@
-import './assets/main.css'
+import './assets/main.css';
 
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
+import { createPinia } from 'pinia';
+import { createApp } from 'vue';
 
-import App from './App.vue'
-import router from './router'
+import App from './App.vue';
+import router from './router';
 
-const app = createApp(App)
+// 测试自定义的组件
+import Vui from '../src/index';
 
-app.use(createPinia())
-app.use(router)
+const app = createApp(App);
 
-app.mount('#app')
+app.use(Vui);
+
+app.use(createPinia());
+app.use(router);
+
+app.mount('#app');
