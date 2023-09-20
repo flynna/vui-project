@@ -11,7 +11,8 @@
       <vui-button>测试一下自定义的button</vui-button>
     </div>
 
-    <script>
+    <!-- 方式一 -->
+    <!-- <script>
       const { createApp } = Vue;
 
       const app = createApp({});
@@ -23,12 +24,23 @@
 
       document.getElementsByTagName('head')[0].appendChild(script);
 
+      //! 由于需要在根挂载之前完成插件注册，所以这里通过动态载入的方式加载 `Vui` 资源，并在资源加载结束后再执行 mount 挂载
       script.onload = () => {
         app.mount('#app');
       };
       script.onerror = () => {
         console.error('vui.js load error!');
       };
+    </script> -->
+
+    <!-- 方式二 -->
+    <script src="../lib/vui.umd.js"></script>
+    <script>
+      const { createApp } = Vue;
+      const app = createApp({});
+
+      app.use(window.Vui);
+      app.mount('#app');
     </script>
   </body>
 </html>

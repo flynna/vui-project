@@ -45,15 +45,25 @@ const install: InstallFunction = function (Vue, options = {}) {
   // };
 };
 
-// 直接给浏览器或 AMD loader 使用 --- Vue3 需要向全局暴露 __VUE__ (自定义的)
-const contentWindow = globalThis as unknown as Window;
+// tips: 下面逻辑主要是为 vue2 提供，直接给浏览器或 AMD loader 使用，引入 script 即可完成注册
+{
+  const contentWindow = globalThis as unknown as Window;
 
-if (contentWindow?.Vue || contentWindow?.__VUE__) {
-  // vue3 umd window.Vue 上不存在 use、component 方法
-  // FIX: 开发者在实例创建完成后手动绑定 window.__VUE__ 属性，传入再进行注册，详细见 ../docs/vue3Demo.html
-  const vueApp = contentWindow.Vue.use ? contentWindow.Vue : contentWindow.__VUE__;
+  if (contentWindow?.Vue?.use) {
+    install(contentWindow.Vue);
+  }
+}
 
-  install(vueApp);
+//! 当在 Vue3 项目中作为 script 引入时：
+{
+  // 方案一: 推荐 --- 先引入 vue3 和 vui 的 script，然后通过 `app.use(window.Vui)` 来手动注册
+
+  // 方案二：将实例化后的 app 作为属性挂载到 window 上，例如 window.__VUE__，详见 ../docs/vue3Demo.html
+  const contentWindow = globalThis as unknown as Window;
+
+  if (contentWindow && !contentWindow.Vue?.use && contentWindow.__VUE__?.use) {
+    install(contentWindow.__VUE__);
+  }
 }
 
 export default {
