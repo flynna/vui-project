@@ -1,7 +1,10 @@
 {
   "name": "vui-project",
-  "version": "0.0.0",
-  "private": true,
+  "version": "0.0.1",
+  "main": "lib/vui.mjs",
+  "author": "hrlin <flynnzhl@qq.com>",
+  "homepage": "https://github.com/flynna/vui-project/blob/main/README.md",
+  "license": "ISC",
   "scripts": {
     "dev": "vite",
     "build": "run-p type-check \"build-only {@}\" --",
@@ -13,7 +16,20 @@
     "build:lib": "vite build --config viteLib.config.ts",
     "type-check": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "format": "prettier --write src/ example/ packages/"
+    "format": "prettier --write src/ example/ packages/",
+    "prepublishOnly": "npm run build:lib"
+  },
+  "unpkg": "lib/vui.umd.js",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/flynna/vui-project.git"
+  },
+  "bugs": {
+    "url": "https://github.com/flynna/vui-project/issues"
   },
   "dependencies": {
     "pinia": "^2.1.6",
