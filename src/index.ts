@@ -8,7 +8,6 @@ type InstallFunction = {
 
 interface Window extends globalThis.Window {
   [k: string]: any;
-  Vue?: any;
 }
 
 // 所有自定义的组件
@@ -16,8 +15,6 @@ const vuiComponents = [VuiButton];
 
 // 支持 use.use 全局注册所有组件
 const install: InstallFunction = function (Vue, options = {}) {
-  if (install.installed) return;
-
   // 因为组件内部实现了 install 方法，所以可以直接 Vue.use
   vuiComponents.forEach((component) => Vue.use(component));
 
@@ -38,23 +35,25 @@ const install: InstallFunction = function (Vue, options = {}) {
 
     // const app = getCurrentInstance();
     // const vuiConfig = app?.appContext.config.globalProperties.$vui
-  } else {
-    // vue2 版本的全局配置
-    Vue.prototype.$vui = {
-      ...options,
-      size: options.size || 'middle',
-      theme: options.theme || 'light',
-    };
   }
+
+  // vue2 版本的全局配置
+  // Vue.prototype.$vui = {
+  //   ...options,
+  //   size: options.size || 'middle',
+  //   theme: options.theme || 'light',
+  // };
 };
 
-// 直接给浏览器或 AMD loader 使用
-if (typeof window !== 'undefined' && (window as Window).Vue) {
-  install((window as Window).Vue);
+// 直接给浏览器或 AMD loader 使用 --- Vue3 需要向全局暴露 __VUE__ (自定义的)
+const contentWindow = globalThis as unknown as Window;
 
-  if (install.installed) {
-    install.installed = false;
-  }
+if (contentWindow?.Vue || contentWindow?.__VUE__) {
+  // vue3 umd window.Vue 上不存在 use、component 方法
+  // FIX: 开发者在实例创建完成后手动绑定 window.__VUE__ 属性，传入再进行注册，详细见 ../docs/vue3Demo.html
+  const vueApp = contentWindow.Vue.use ? contentWindow.Vue : contentWindow.__VUE__;
+
+  install(vueApp);
 }
 
 export default {
