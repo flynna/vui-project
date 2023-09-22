@@ -16,7 +16,10 @@ import HelloWorld from './components/HelloWorld.vue';
       </nav>
     </div>
   </header>
-  <vui-button>测试一下自定义的button</vui-button>
+  <div>
+    <VuiButton>测试一下自定义的button</VuiButton>
+    <vui-text type="warning" class="vt">测试一下自定义的text</vui-text>
+  </div>
   <RouterView />
 </template>
 
@@ -24,6 +27,10 @@ import HelloWorld from './components/HelloWorld.vue';
 header {
   line-height: 1.5;
   max-height: 100vh;
+}
+
+.vt {
+  margin-top: 20px;
 }
 
 .logo {

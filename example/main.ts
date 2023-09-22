@@ -7,6 +7,7 @@ import App from './App.vue';
 import router from './router';
 
 // 测试自定义的组件
+// import { Button, Text } from '../src/index';
 import Vui from '../src/index';
 
 const app = createApp(App);
