@@ -1,7 +1,8 @@
 {
   "name": "vui-project",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "main": "lib/vui.mjs",
+  "typings": "types/index.d.ts",
   "author": "hrlin <flynnzhl@qq.com>",
   "homepage": "https://github.com/flynna/vui-project/blob/main/README.md",
   "license": "ISC",
@@ -21,7 +22,8 @@
   },
   "unpkg": "lib/vui.umd.js",
   "files": [
-    "lib"
+    "lib",
+    "types"
   ],
   "publishConfig": {
     "access": "public",
