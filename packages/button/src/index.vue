@@ -1,6 +1,6 @@
 <script setup lang="ts"></script>
 
-<script>
+<script lang="ts">
 export default {
   name: 'vui-button',
 };

@@ -1,8 +1,10 @@
-import VuiButton from '../packages/button';
+import type { App } from 'vue';
+import Button from '../packages/button';
+import Text from '../packages/text';
 // ...other component
 
 type InstallFunction = {
-  (Vue: any, options?: { size?: 'small' | 'middle' | 'large'; theme?: 'dark' | 'light' }): void;
+  (app: App, options?: { size?: 'small' | 'middle' | 'large'; theme?: 'dark' | 'light' }): void;
   installed?: boolean;
 };
 
@@ -11,12 +13,12 @@ interface Window extends globalThis.Window {
 }
 
 // 所有自定义的组件
-const vuiComponents = [VuiButton];
+const vuiComponents = [Button, Text];
 
 // 支持 use.use 全局注册所有组件
-const install: InstallFunction = function (Vue, options = {}) {
+const install: InstallFunction = function (app, options = {}) {
   // 因为组件内部实现了 install 方法，所以可以直接 Vue.use
-  vuiComponents.forEach((component) => Vue.use(component));
+  vuiComponents.forEach((component) => app.use(component));
 
   // 如果没有实现，则如下：
   // vuiComponents.forEach(component => Vue.component(component.name || component.__name, component))
@@ -24,8 +26,8 @@ const install: InstallFunction = function (Vue, options = {}) {
   // -------------------------------------------------------
 
   // vue3 使用 app.config.globalProperties 替代 prototype
-  if (Vue.config.globalProperties) {
-    Vue.config.globalProperties.$vui = {
+  if (app.config.globalProperties) {
+    app.config.globalProperties.$vui = {
       ...options,
       size: options.size || 'middle',
       theme: options.theme || 'light',
@@ -66,8 +68,13 @@ const install: InstallFunction = function (Vue, options = {}) {
   }
 }
 
+// 支持解构导入 eg. import { Button } from 'vui-project'; app.use(Button);
+export { default as Button } from '../packages/button';
+export { default as Text } from '../packages/text';
+
 export default {
   install, // 用于ES modules，import Vue 后直接使用 Vue.use()
-  VuiButton, // 解构赋值导出单个组件
+  Button, // 支持解构赋值按需引入单个组件 eg.  import Vui from 'vui-project'; const { Button } = Vui;
+  Text, // eg. Vui.Text
   // ...other component
 };
