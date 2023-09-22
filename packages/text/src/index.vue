@@ -12,7 +12,7 @@ const className = computed(() => {
 
 <script lang="ts">
 export default {
-  name: 'vui-text',
+  name: 'VuiText',
 };
 </script>
 
