@@ -60,7 +60,7 @@ const install: InstallFunction = function (app, options = {}) {
 {
   // 方案一: 推荐 --- 先引入 vue3 和 vui 的 script，然后通过 `app.use(window.Vui)` 来手动注册
 
-  // 方案二：将实例化后的 app 作为属性挂载到 window 上，例如 window.__VUE__，详见 ../docs/vue3Demo.html
+  // 方案二：将实例化后的 app 作为属性挂载到 window 上，例如 window.__VUE__，详见 ../example/demo/vue3Demo.html
   const contentWindow = globalThis as unknown as Window;
 
   if (contentWindow && !contentWindow.Vue?.use && contentWindow.__VUE__?.use) {
