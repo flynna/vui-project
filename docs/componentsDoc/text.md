@@ -24,6 +24,13 @@ app.use(Text);
 
 按钮支持 `default`、`primary`、`success`、`info`、`warning`、`danger` 六种类型，默认为 `default`。
 
+<VuiText type="default">默认信息</VuiText>
+<VuiText type="primary">主要信息</VuiText>
+<VuiText type="success">成功信息</VuiText>
+<VuiText type="info">提示信息</VuiText>
+<VuiText type="warning">警告信息</VuiText>
+<VuiText type="danger">危险信息</VuiText>
+
 ```html
 <VuiText type="default">默认信息</VuiText>
 <VuiText type="primary">主要信息</VuiText>
