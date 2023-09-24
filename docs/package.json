@@ -1,0 +1,16 @@
+{
+  "name": "vui-docs",
+  "version": "0.0.1",
+  "description": "vui-project components docs",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "docs:dev": "vuepress dev .",
+    "docs:build": "vuepress build ."
+  },
+  "devDependencies": {
+    "vuepress": "^1.9.10"
+  }
+}
